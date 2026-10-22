@@ -1,0 +1,10 @@
+$ docker exec proxy wget -qO- -T 2 http://db:6379 || echo 'proxy -> db: ім’я не резолвиться (ізоляція)'; docker run --rm --network container:proxy nicolaka/netshoot ip -br addr; APP=$(docker compose ps -q app); docker run --rm --network container:$APP nicolaka/netshoot ip -br addr; docker run --rm --network container:$APP nicolaka/netshoot getent hosts proxy db
+wget: bad address 'db:6379'
+proxy -> db: ім’я не резолвиться (ізоляція)
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if112       UP             172.28.1.3/24 
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if110       UP             172.28.2.3/24 
+eth1@if111       UP             172.28.1.2/24 
+172.28.1.3        proxy  proxy
+172.28.2.2        db  db

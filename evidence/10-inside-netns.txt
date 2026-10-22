@@ -1,0 +1,26 @@
+$ for c in proxy app db; do echo "=== $c"; docker run --rm --network container:$c nicolaka/netshoot sh -c 'ip -br addr; ip route; ss -tlnp'; done
+=== proxy
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if87        UP             172.28.0.4/24 
+default via 172.28.0.1 dev eth0 
+172.28.0.0/24 dev eth0 proto kernel scope link src 172.28.0.4 
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess
+LISTEN 0      511          0.0.0.0:80         0.0.0.0:*   
+LISTEN 0      4096      127.0.0.11:39159      0.0.0.0:*   
+=== app
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if86        UP             172.28.0.3/24 
+default via 172.28.0.1 dev eth0 
+172.28.0.0/24 dev eth0 proto kernel scope link src 172.28.0.3 
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess
+LISTEN 0      2048         0.0.0.0:8000       0.0.0.0:*   
+LISTEN 0      4096      127.0.0.11:34655      0.0.0.0:*   
+=== db
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if85        UP             172.28.0.2/24 
+default via 172.28.0.1 dev eth0 
+172.28.0.0/24 dev eth0 proto kernel scope link src 172.28.0.2 
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess
+LISTEN 0      4096      127.0.0.11:37337      0.0.0.0:*   
+LISTEN 0      511          0.0.0.0:6379       0.0.0.0:*   
+LISTEN 0      511             [::]:6379          [::]:*   

@@ -1,0 +1,20 @@
+$ for m in bridge host none; do echo "=== --network $m"; docker run --rm --network $m nicolaka/netshoot sh -c 'ip -br addr; echo -n "internet: "; (ping -c1 -W2 1.1.1.1 >/dev/null 2>&1 && echo OK) || echo FAIL'; done; docker run -d --rm --name pubtest --network none -p 9090:80 nginx:1.27-alpine >/dev/null; echo "docker port (none): [$(docker port pubtest)]"; docker rm -f pubtest >/dev/null 2>&1
+=== --network bridge
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if101       UP             172.17.0.3/16 
+internet: OK
+=== --network host
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0             UP             192.168.65.3/24 fdc4:f303:9324::3/64 fe80::3c4c:9bff:fe3a:6658/64 
+services1@if11   UP             192.168.65.6/32 fdc4:f303:9324::6/128 fe80::c6d:dbff:fe81:f2dc/64 
+docker0          UP             172.17.0.1/16 fe80::e094:d4ff:fed7:99fd/64 
+br-6fca28acdf61  UP             172.28.0.1/24 fe80::48f9:18ff:fe59:d89f/64 
+veth90ca0fa@if11 UP             fe80::8cef:cfff:fe61:9f1/64 
+vethc58dbba@if11 UP             fe80::f8a5:90ff:fe19:9a93/64 
+veth9ee27ef@if11 UP             fe80::c893:5aff:feb3:63ff/64 
+veth2894b7e@if11 UP             fe80::d491:98ff:fe67:e928/64 
+internet: OK
+=== --network none
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+internet: FAIL
+docker port (none): []

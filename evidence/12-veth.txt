@@ -1,0 +1,9 @@
+$ for c in proxy app db; do echo "=== $c iflink=$(docker exec $c cat /sys/class/net/eth0/iflink)"; done; hostexec 'ip -o link | grep veth | cut -d: -f1,2'
+=== proxy iflink=87
+=== app iflink=86
+=== db iflink=85
+85: veth90ca0fa@if11
+86: vethc58dbba@if11
+87: veth9ee27ef@if11
+94: veth2894b7e@if11
+97: vethd94bc3e@if11

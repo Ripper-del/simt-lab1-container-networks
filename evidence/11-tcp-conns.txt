@@ -1,0 +1,9 @@
+$ for c in proxy app db; do echo "=== $c"; docker run --rm --network container:$c nicolaka/netshoot ss -tn; done
+=== proxy
+State Recv-Q Send-Q Local Address:Port Peer Address:Port
+=== app
+State Recv-Q Send-Q Local Address:Port  Peer Address:Port
+ESTAB 0      0         172.28.0.3:45368   172.28.0.2:6379
+=== db
+State Recv-Q Send-Q Local Address:Port Peer Address:Port
+ESTAB 0      0         172.28.0.2:6379   172.28.0.3:45368

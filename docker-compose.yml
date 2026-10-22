@@ -1,0 +1,68 @@
+name: lab1
+
+services:
+  db:
+    image: redis:7-alpine
+    container_name: db
+    # дані тільки в backend-мережі
+    networks: [backend]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      timeout: 2s
+      retries: 10
+      start_period: 3s
+
+  app:
+    build: ./app
+    image: lab1-app:1.0
+    environment:
+      REDIS_HOST: db
+    # app бачить обидва сегменти
+    networks:
+      frontend:
+      backend:
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2).read()"
+      interval: 3s
+      timeout: 3s
+      retries: 10
+      start_period: 3s
+
+  proxy:
+    image: nginx:1.27-alpine
+    container_name: proxy
+    # єдиний опублікований порт
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks: [frontend]
+    depends_on:
+      app:
+        condition: service_healthy
+
+networks:
+  frontend:
+    name: lab1-frontend
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.1.0/24
+          gateway: 172.28.1.1
+  backend:
+    name: lab1-backend
+    driver: bridge
+    # без виходу назовні
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.28.2.0/24
+          gateway: 172.28.2.1

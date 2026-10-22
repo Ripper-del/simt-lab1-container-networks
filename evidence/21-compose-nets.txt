@@ -1,0 +1,3 @@
+$ docker network inspect lab1-frontend lab1-backend --format '{{.Name}} subnet={{(index .IPAM.Config 0).Subnet}} internal={{.Internal}} containers: {{range $id,$c := .Containers}}{{$c.Name}}={{$c.IPv4Address}} {{end}}'
+lab1-frontend subnet=172.28.1.0/24 internal=false containers: proxy=172.28.1.3/24 lab1-app-1=172.28.1.2/24 
+lab1-backend subnet=172.28.2.0/24 internal=true containers: lab1-app-1=172.28.2.3/24 db=172.28.2.2/24 

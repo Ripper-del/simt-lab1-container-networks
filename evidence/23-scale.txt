@@ -1,0 +1,33 @@
+$ docker compose up -d --scale app=2 --wait --no-recreate; docker compose ps app; docker run --rm --network lab1-frontend nicolaka/netshoot dig +short app; for i in 1 2 3 4 5 6; do curl -s http://localhost:8080/; done
+ Container db  Running
+ Container lab1-app-1  Running
+ Container lab1-app-2  Creating
+ Container lab1-app-2  Created
+ Container proxy  Running
+ Container db  Waiting
+ Container db  Healthy
+ Container lab1-app-2  Starting
+ Container lab1-app-2  Started
+ Container lab1-app-2  Waiting
+ Container lab1-app-1  Waiting
+ Container lab1-app-2  Healthy
+ Container lab1-app-1  Healthy
+ Container proxy  Waiting
+ Container db  Waiting
+ Container lab1-app-2  Waiting
+ Container lab1-app-1  Waiting
+ Container db  Healthy
+ Container proxy  Healthy
+ Container lab1-app-2  Healthy
+ Container lab1-app-1  Healthy
+NAME         IMAGE          COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+lab1-app-1   lab1-app:1.0   "gunicorn --bind 0.0…"   app       20 seconds ago   Up 14 seconds (healthy)   8000/tcp
+lab1-app-2   lab1-app:1.0   "gunicorn --bind 0.0…"   app       7 seconds ago    Up 6 seconds (healthy)    8000/tcp
+172.28.1.2
+172.28.1.4
+{"hits":1,"instance":"c1ce0dbb0c1d"}
+{"hits":2,"instance":"58f4f4a527ba"}
+{"hits":3,"instance":"c1ce0dbb0c1d"}
+{"hits":4,"instance":"58f4f4a527ba"}
+{"hits":5,"instance":"c1ce0dbb0c1d"}
+{"hits":6,"instance":"58f4f4a527ba"}

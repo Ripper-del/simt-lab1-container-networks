@@ -1,0 +1,4 @@
+$ docker version --format 'Client {{.Client.Version}} / Server {{.Server.Version}} ({{.Server.Os}}/{{.Server.Arch}})'; docker compose version; docker info --format 'Driver={{.Driver}} CgroupVersion={{.CgroupVersion}} Kernel={{.KernelVersion}} OS={{.OperatingSystem}}'
+Client 28.5.2 / Server 28.5.2 (linux/arm64)
+Docker Compose version v2.40.3-desktop.1
+Driver=overlayfs CgroupVersion=2 Kernel=6.12.54-linuxkit OS=Docker Desktop

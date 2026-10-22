@@ -1,0 +1,9 @@
+$ docker port proxy; docker port app || echo 'app: портів не опубліковано'; docker port db || echo 'db: портів не опубліковано'; curl -s http://localhost:8080/; curl -s -m 3 http://localhost:8000/ || echo 'localhost:8000 недоступний'; curl -s -m 3 http://localhost:6379/ || echo 'localhost:6379 недоступний'; hostexec 'iptables -t nat -L DOCKER -n'
+80/tcp -> 0.0.0.0:8080
+80/tcp -> [::]:8080
+{"hits":4,"instance":"729a555d38d6"}
+localhost:8000 недоступний
+localhost:6379 недоступний
+Chain DOCKER (2 references)
+target     prot opt source               destination         
+DNAT       6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8080 to:172.28.0.4:80

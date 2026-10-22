@@ -1,0 +1,6 @@
+$ docker network ls; docker network inspect bridge --format 'Name={{.Name}} Driver={{.Driver}} Subnet={{(index .IPAM.Config 0).Subnet}} Gateway={{(index .IPAM.Config 0).Gateway}}'
+NETWORK ID     NAME      DRIVER    SCOPE
+4c7577a2fac8   bridge    bridge    local
+5ca8ab03fee6   host      host      local
+c31edac7ad36   none      null      local
+Name=bridge Driver=bridge Subnet=172.17.0.0/16 Gateway=172.17.0.1

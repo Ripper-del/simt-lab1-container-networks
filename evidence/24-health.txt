@@ -1,0 +1,28 @@
+$ docker inspect --format '{{.Name}} {{if .State.Health}}{{.State.Health.Status}}{{else}}no-healthcheck{{end}}' $(docker compose ps -q); docker compose stop db; docker compose ps -a --format '{{.Service}} {{.Status}}'; docker compose stop app proxy db; docker compose ps -a --format '{{.Service}} {{.Status}}'; docker compose up -d proxy 2>&1 | grep -E 'Waiting|Healthy|Started'; sleep 2; docker compose ps -a --format '{{.Service}} {{.Status}}'
+/db healthy
+/lab1-app-1 healthy
+/proxy no-healthcheck
+ Container db  Stopping
+ Container db  Stopped
+db Exited (0) Less than a second ago
+app Up 17 seconds (healthy)
+proxy Up 11 seconds
+ Container proxy  Stopping
+ Container proxy  Stopped
+ Container lab1-app-1  Stopping
+ Container lab1-app-1  Stopped
+ Container db  Stopping
+ Container db  Stopped
+db Exited (0) 1 second ago
+app Exited (0) Less than a second ago
+proxy Exited (0) Less than a second ago
+ Container db  Started
+ Container db  Waiting
+ Container db  Healthy
+ Container lab1-app-1  Started
+ Container lab1-app-1  Waiting
+ Container lab1-app-1  Healthy
+ Container proxy  Started
+db Up 13 seconds (healthy)
+app Up 8 seconds (healthy)
+proxy Up 2 seconds

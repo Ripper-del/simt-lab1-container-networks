@@ -1,0 +1,7 @@
+$ hostexec "ip -br addr | grep -E '^br-|^veth'"
+br-6fca28acdf61  UP             172.28.0.1/24 fe80::48f9:18ff:fe59:d89f/64 
+veth90ca0fa@if11 UP             fe80::8cef:cfff:fe61:9f1/64 
+vethc58dbba@if11 UP             fe80::f8a5:90ff:fe19:9a93/64 
+veth9ee27ef@if11 UP             fe80::c893:5aff:feb3:63ff/64 
+veth2894b7e@if11 UP             fe80::d491:98ff:fe67:e928/64 
+veth9f5c95c@if11 UP             fe80::30ad:dbff:fe35:1f7b/64 

@@ -1,0 +1,64 @@
+$ docker compose down -v; docker compose up -d --wait; docker compose ps; curl -s http://localhost:8080/; docker compose down -v
+ Container proxy  Stopping
+ Container proxy  Stopped
+ Container proxy  Removing
+ Container proxy  Removed
+ Container lab1-app-1  Stopping
+ Container lab1-app-1  Stopped
+ Container lab1-app-1  Removing
+ Container lab1-app-1  Removed
+ Container db  Stopping
+ Container db  Stopped
+ Container db  Removing
+ Container db  Removed
+ Network lab1-frontend  Removing
+ Network lab1-backend  Removing
+ Network lab1-backend  Removed
+ Network lab1-frontend  Removed
+ Network lab1-frontend  Creating
+ Network lab1-frontend  Created
+ Network lab1-backend  Creating
+ Network lab1-backend  Created
+ Container db  Creating
+ Container db  Created
+ Container lab1-app-1  Creating
+ Container lab1-app-1  Created
+ Container proxy  Creating
+ Container proxy  Created
+ Container db  Starting
+ Container db  Started
+ Container db  Waiting
+ Container db  Healthy
+ Container lab1-app-1  Starting
+ Container lab1-app-1  Started
+ Container lab1-app-1  Waiting
+ Container lab1-app-1  Healthy
+ Container proxy  Starting
+ Container proxy  Started
+ Container proxy  Waiting
+ Container db  Waiting
+ Container lab1-app-1  Waiting
+ Container db  Healthy
+ Container lab1-app-1  Healthy
+ Container proxy  Healthy
+NAME         IMAGE               COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+db           redis:7-alpine      "docker-entrypoint.s…"   db        12 seconds ago   Up 12 seconds (healthy)   
+lab1-app-1   lab1-app:1.0        "gunicorn --bind 0.0…"   app       12 seconds ago   Up 6 seconds (healthy)    8000/tcp
+proxy        nginx:1.27-alpine   "/docker-entrypoint.…"   proxy     12 seconds ago   Up Less than a second     0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+{"hits":1,"instance":"52caaf93045c"}
+ Container proxy  Stopping
+ Container proxy  Stopped
+ Container proxy  Removing
+ Container proxy  Removed
+ Container lab1-app-1  Stopping
+ Container lab1-app-1  Stopped
+ Container lab1-app-1  Removing
+ Container lab1-app-1  Removed
+ Container db  Stopping
+ Container db  Stopped
+ Container db  Removing
+ Container db  Removed
+ Network lab1-frontend  Removing
+ Network lab1-backend  Removing
+ Network lab1-frontend  Removed
+ Network lab1-backend  Removed

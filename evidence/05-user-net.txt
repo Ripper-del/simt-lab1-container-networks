@@ -1,0 +1,5 @@
+$ docker network ls --filter name=lab1-net; docker network inspect lab1-net --format 'Subnet={{(index .IPAM.Config 0).Subnet}} Gateway={{(index .IPAM.Config 0).Gateway}} Driver={{.Driver}}'; hostexec "ip -br addr | grep -E '^br-'"
+NETWORK ID     NAME       DRIVER    SCOPE
+6fca28acdf61   lab1-net   bridge    local
+Subnet=172.28.0.0/24 Gateway=172.28.0.1 Driver=bridge
+br-6fca28acdf61  UP             172.28.0.1/24 fe80::48f9:18ff:fe59:d89f/64 
